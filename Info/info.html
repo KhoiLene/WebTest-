@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thông tin học tập</title>
+<link rel="stylesheet" href="new.css">
+</head>
+
+
+<body>
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>HCMUTE</h2>
+        <p>Nguyễn Minh Khôi</p>
+
+        <ul>
+            <li>
+                <a href="Profile.html">Trang cá nhân</a>
+            </li>
+            <li class="active">
+                <a href="info.html">Thông tin</a>
+            </li>
+            <li >
+                <a href="new.html">Thời khóa biểu</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+        <h2 class="title">THÔNG TIN HỌC TẬP SINH VIÊN</h2>
+        <!-- Card avatar -->
+        <div class="card profile">
+            <img src="https://via.placeholder.com/150" class="avatar">
+            <h3>Lê Nguyễn Minh Khôi</h3>
+            <button class="btn">Remove Picture</button>
+        </div>
+        <!-- 🆕 Card 1: Thông tin học tập -->
+        <div class="card info">
+            <h3>Thông tin sinh viên</h3>
+
+            <div class="row">
+                <span>Mã sinh viên</span>
+                <span>24110028</span>
+            </div>
+
+            <div class="row">
+                <span>Họ tên</span>
+                <span>Lê Nguyễn Minh Khôi</span>
+            </div>
+
+            <div class="row">
+                <span>Ngày sinh</span>
+                <span>12/10/2006</span>
+            </div>
+        </div>
+        <!-- 🆕 Card 2: Thông tin học tập -->
+        <div class="card info">
+            <h3>Thông tin học tập</h3>
+
+            <div class="row">
+                <span>Ngành học</span>
+                <span>Công nghệ thông tin</span>
+            </div>
+
+            <div class="row">
+                <span>Lớp</span>
+                <span>24CTT1</span>
+            </div>
+
+            <div class="row">
+                <span>Khóa</span>
+                <span>2024</span>
+            </div>
+        </div>
+        <!-- 🆕 Card : Thành tích học tập -->
+        <div class="card info">
+            <h3>Thành tích học tập</h3>
+
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                <style>
+                    .chart-box {
+                        width: 300px;
+                        height: 300px;
+                    }
+                </style>
+                </head>
+                <body>
+
+                <div class="chart-box">
+                    <canvas id="myChart" width="300" height="300"></canvas>
+                </div>
+
+                <script>
+                const ctx = document.getElementById('myChart');
+
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['A', 'B', 'C'],
+                        datasets: [{
+                            data: [30, 50, 20]
+                        }]
+                    },
+                    options: {
+                        responsive: false // 🔥 QUAN TRỌNG
+                    }
+                });
+            </script>
+
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

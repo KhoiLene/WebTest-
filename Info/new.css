@@ -1,0 +1,106 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+}
+
+.container {
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background: #0b5ed7;
+    color: white;
+    height: 100vh;
+    padding: 20px;
+}
+
+.sidebar ul {
+    margin-top: 20px;
+}
+
+.sidebar li {
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.sidebar .active {
+    background: orange;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Header */
+.header {
+    background: #0b5ed7;
+    color: white;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Filter */
+.filter {
+    margin-bottom: 20px;
+}
+
+.filter select, .filter button {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+/* Schedule */
+.schedule {
+    border: 1px solid #ccc;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 100px 1fr 1fr 1fr;
+}
+
+.row > div {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.header-row {
+    background: #0b5ed7;
+    color: white;
+}
+
+.day {
+    background: #f4c28b;
+}
+
+.card {
+    background: #d9edf7;
+    border-radius: 6px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar li {
+    padding: 10px;
+}
+
+.sidebar li:hover {
+    background: #0a58ca;
+}
+.card {
+    margin-bottom: 20px;
+}

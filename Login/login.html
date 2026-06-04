@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Đăng nhập</title>
+
+<link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+<!-- Logo -->
+<div class="logo">
+    <img src="https://upload.wikimedia.org/wikipedia/vi/0/0c/Logo_HCMUTE.png">
+    <h3>TRƯỜNG ĐẠI HỌC CÔNG NGHỆ KỸ THUẬT TP.HCM</h3>
+</div>
+
+<!-- Box login -->
+<div class="login-box">
+
+    <h2>ĐĂNG NHẬP</h2>
+    <p>Cổng thông tin đào tạo</p>
+
+    <input type="text" id="user" placeholder="Tên đăng nhập">
+    <input type="password" id="pass" placeholder="Mật khẩu">
+
+    <button class="btn" onclick="login()">Đăng nhập</button>
+
+    <!-- Google -->
+    <button class="btn google">
+        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" width="16">
+        Đăng nhập với Google Sinh viên
+    </button>
+
+    <button class="btn google">
+        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" width="16">
+        Đăng nhập với Google Giảng viên
+    </button>
+
+    <div class="forgot">Quên mật khẩu</div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    All Rights Reserved Developed by LPSC
+</div>
+
+<script>
+// 🔹 Fake database
+const users = [
+    {
+        username: "khoi",
+        password: "123",
+        avatar: "images/khoi.jpg"
+    },
+    {
+        username: "admin",
+        password: "123",
+        avatar: "images/admin.jpg"
+    }
+];
+
+// 🔹 Login function
+function login(){
+    const u = document.getElementById("user").value;
+    const p = document.getElementById("pass").value;
+
+    const user = users.find(x => x.username === u && x.password === p);
+
+    if(user){
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location.href = "profile.html";
+    } else {
+        alert("Sai tài khoản hoặc mật khẩu!");
+    }
+}
+
+// 🔹 Enter để login
+document.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        login();
+    }
+});
+</script>
+
+</body>
+</html>
