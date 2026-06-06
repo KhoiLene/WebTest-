@@ -22,21 +22,34 @@
     <h2>ĐĂNG NHẬP</h2>
     <p>Cổng thông tin đào tạo</p>
 
-    <input type="text" id="user" placeholder="Tên đăng nhập">
-    <input type="password" id="pass" placeholder="Mật khẩu">
+    <!-- ✅ TAB CHỌN LOẠI ĐĂNG NHẬP -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('student')">Sinh viên</button>
+        <button class="tab-btn" onclick="switchTab('lecturer')">Giảng viên</button>
+    </div>
 
-    <button class="btn" onclick="login()">Đăng nhập</button>
+    <!-- ✅ SINH VIÊN LOGIN -->
+    <div id="studentTab" class="tab-content active">
+        <input type="text" id="studentUser" placeholder="Tên đăng nhập hoặc Email">
+        <input type="password" id="studentPass" placeholder="Mật khẩu">
+        <button class="btn" onclick="studentLogin()">Đăng nhập</button>
 
-    <!-- Google -->
-    <button class="btn google">
-        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" width="16">
-        Đăng nhập với Google Sinh viên
-    </button>
+        <div class="divider">hoặc</div>
 
-    <button class="btn google">
-        <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" width="16">
-        Đăng nhập với Google Giảng viên
-    </button>
+        <button class="btn google" onclick="studentGoogleLogin()">
+            <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" width="16">
+            Đăng nhập với Google
+        </button>
+    </div>
+
+    <!-- ✅ GIẢNG VIÊN LOGIN (Chỉ Gmail) -->
+    <div id="lecturerTab" class="tab-content">
+        <button class="btn google google-full" onclick="lecturerGoogleLogin()">
+            <img src="https://cdn-icons-png.flaticon.com/512/281/281764.png" width="16">
+            Đăng nhập với Google
+        </button>
+        <p class="info-text">Vui lòng sử dụng tài khoản Gmail của nhà trường</p>
+    </div>
 
     <div class="forgot">Quên mật khẩu</div>
 
@@ -48,39 +61,122 @@
 </div>
 
 <script>
-// 🔹 Fake database
-const users = [
-    {
-        username: "khoi",
-        password: "123",
-        avatar: "images/khoi.jpg"
-    },
-    {
-        username: "admin",
-        password: "123",
-        avatar: "images/admin.jpg"
-    }
-];
+// ===== STORAGE =====
+function getUsers(){
+  return JSON.parse(localStorage.getItem("users")) || [];
+}
 
-// 🔹 Login function
-function login(){
-    const u = document.getElementById("user").value;
-    const p = document.getElementById("pass").value;
+function saveUsers(users){
+  localStorage.setItem("users", JSON.stringify(users));
+}
 
-    const user = users.find(x => x.username === u && x.password === p);
+// ===== INIT DATA =====
+(function init(){
+  let users = getUsers();
 
-    if(user){
-        localStorage.setItem("currentUser", JSON.stringify(user));
-        window.location.href = "profile.html";
+  if(users.length === 0){
+    users.push({
+      username: "khoi",
+      email: "khoi@student.hcmute.edu.vn",
+      password: "123",
+      role: "student",
+      mustChangePassword: false
+    });
+
+    users.push({
+      username: "linh",
+      email: "linh@student.hcmute.edu.vn",
+      password: "123",
+      role: "student",
+      mustChangePassword: true
+    });
+
+    users.push({
+      username: "admin",
+      email: "admin@hcmute.edu.vn",
+      password: "123",
+      role: "lecturer",
+      mustChangePassword: false
+    });
+
+    saveUsers(users);
+  }
+})();
+
+// ✅ CHUYỂN TAB
+function switchTab(tab){
+    const studentTab = document.getElementById("studentTab");
+    const lecturerTab = document.getElementById("lecturerTab");
+    const tabs = document.querySelectorAll(".tab-btn");
+
+    if(tab === "student"){
+        studentTab.classList.add("active");
+        lecturerTab.classList.remove("active");
+        tabs[0].classList.add("active");
+        tabs[1].classList.remove("active");
     } else {
-        alert("Sai tài khoản hoặc mật khẩu!");
+        lecturerTab.classList.add("active");
+        studentTab.classList.remove("active");
+        tabs[1].classList.add("active");
+        tabs[0].classList.remove("active");
     }
 }
 
-// 🔹 Enter để login
+// ✅ SINH VIÊN LOGIN (TK + MK)
+function studentLogin(){
+    const u = document.getElementById("studentUser").value.trim();
+    const p = document.getElementById("studentPass").value;
+
+    console.log("Username:", u);
+    console.log("Password:", p);
+    console.log("All users:", getUsers());
+
+    if(!u || !p){
+        alert("Vui lòng nhập tên đăng nhập/email và mật khẩu!");
+        return;
+    }
+
+    const users = getUsers();
+    
+    // ✅ Tìm user theo username hoặc email
+    const student = users.find(x => 
+        (x.username === u || x.email === u) && 
+        x.password === p && 
+        x.role === "student"
+    );
+
+    console.log("Student found:", student);
+
+    if(student){
+        localStorage.setItem("currentUser", JSON.stringify(student));
+        
+        if(student.mustChangePassword){
+            window.location.href = "change-password.html";
+        } else {
+            window.location.href = "profile.html";
+        }
+    } else {
+        alert("Sai tài khoản, email hoặc mật khẩu!");
+    }
+}
+
+// ✅ SINH VIÊN LOGIN (Google)
+function studentGoogleLogin(){
+    alert("Chuyển hướng đến Google Login cho Sinh viên...");
+}
+
+// ✅ GIẢNG VIÊN LOGIN (Chỉ Google)
+function lecturerGoogleLogin(){
+    alert("Chuyển hướng đến Google Login cho Giảng viên...");
+}
+
+// ✅ ENTER ĐỂ LOGIN
 document.addEventListener("keypress", function(e){
     if(e.key === "Enter"){
-        login();
+        const activeTab = document.querySelector(".tab-content.active");
+        if(activeTab.id === "studentTab"){
+            studentLogin();
+        }
     }
 });
 </script>
